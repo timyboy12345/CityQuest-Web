@@ -22,7 +22,7 @@ fetchHomePage();
 
 <template>
   <Page v-if="pageData" :sections="pageData.sections"/>
-  <div v-else>Laden...</div>
+  <div v-else class="mt-20">Laden...</div>
 </template>
 
 <style scoped>

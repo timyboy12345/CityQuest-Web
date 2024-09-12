@@ -4,7 +4,7 @@ defineProps(['section']);
 </script>
 
 <template>
-  <Width class="my-8 md:w-full">
+  <Width class="my-6 md:w-full">
     <RouterLink v-if="section.item.quests.length === 1"
                 :to="`/cities/${section.item.quests[0].quest_id.id}`"
                 class="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8 p-4 -mx-4 rounded-xl border border-gray-100 hover:border-gray-300 transition duration-100">

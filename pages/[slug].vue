@@ -47,7 +47,7 @@ fetchPage();
 
 <template>
   <Page v-if="pageData" :sections="pageData.sections"/>
-  <div v-else-if="pageExists">Laden...</div>
+  <div v-else-if="pageExists" class="mt-20">Laden...</div>
   <div v-else>Pagina niet gevonden</div>
 </template>
 
