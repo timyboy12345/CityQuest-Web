@@ -12,7 +12,9 @@ const fetchHomePage = async () => {
           'sections.item:page_header.*',
           'sections.item:page_images.images.*',
           'sections.item:page_faqs.faqs.page_faq_id.*',
-          'sections.item:page_quote.quote',
+          'sections.item:page_quote.*',
+          'sections.item:page_quote.quest.id',
+          'sections.item:page_quote.quest.name',
           'sections.item:page_quests.quests.quest_id.*',
         ],
         filter: {

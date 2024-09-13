@@ -6,9 +6,9 @@ defineProps(['section']);
 <template>
   <Width class="my-6">
     <NuxtLink v-if="section.item.quests.length === 1"
-              :to="`/cities/${section.item.quests[0].quest_id.id}`"
+              :to="`/steden/${section.item.quests[0].quest_id.id}`"
               class="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8 p-4 -mx-4 rounded-xl border border-gray-100 hover:border-gray-300 transition duration-100">
-      <img :alt="`Afbeelding van ${quest.quest_id.name}`"
+      <img :alt="`Afbeelding van ${section.item.quests[0].quest_id.name}`"
            :src="`https://data.arendz.nl/assets/${section.item.quests[0].quest_id.image}`"
            class="rounded h-40 w-full sm:w-40 object-cover"/>
 
@@ -29,7 +29,7 @@ defineProps(['section']);
     <div class="grid lg:grid-cols-2 gap-4" v-else>
       <NuxtLink
           v-for="quest in section.item.quests"
-          :to="`/cities/${quest.quest_id.id}`"
+          :to="`/steden/${quest.quest_id.id}`"
           class="quest-card flex lg:flex-col items-center lg:items-start gap-2 rounded-xl">
         <img v-if="quest.quest_id.image"
              :alt="`Afbeelding van ${quest.quest_id.name}`"
