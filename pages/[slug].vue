@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 const {getItems} = useDirectusItems();
 const pageExists = ref(true)
 const pageData = ref()
@@ -12,10 +12,11 @@ const fetchPage = async () => {
         fields: [
           '*.*',
           'sections.item:page_text.text',
+          'sections.item:page_header.*',
           'sections.item:page_images.images.*',
           'sections.item:page_faqs.faqs.page_faq_id.*',
           'sections.item:page_quote.quote',
-          'sections.item:page_quests.quests.quest_id.*'
+          'sections.item:page_quests.quests.quest_id.*',
         ],
         filter: {
           slug: route.params.slug
@@ -49,7 +50,9 @@ if (error.value) {
 <template>
   <Page v-if="pageData" :sections="pageData.sections"/>
   <div v-else-if="pageExists" class="mt-20">Laden...</div>
-  <div v-else>Pagina niet gevonden</div>
+  <Width v-else class="mt-8">
+    <h1 class="text-4xl font-bold">Pagina niet gevonden</h1>
+  </Width>
 </template>
 
 <style scoped>

@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 const {getItems} = useDirectusItems();
-const menuItems = ref([])
 const route = useRoute();
 
 const fetchMenuLinks = async () => {
@@ -44,8 +43,7 @@ const fetchMenuLinks = async () => {
   }
 };
 
-const {data, error} = await useAsyncData('menu-links', () => fetchMenuLinks());
-menuItems.value = data.value;
+const {data: menuItems, error} = await useAsyncData('menu-links', () => fetchMenuLinks());
 </script>
 
 <style>

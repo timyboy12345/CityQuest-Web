@@ -1,13 +1,20 @@
-<script setup lang="ts">
+<script setup>
 const {getItems} = useDirectusItems();
-const pageData = ref()
 
 const fetchHomePage = async () => {
   try {
     return await getItems({
       collection: 'page',
       params: {
-        fields: ['*', 'sections.*', 'sections.item.*'],
+        fields: [
+          '*.*',
+          'sections.item:page_text.text',
+          'sections.item:page_header.*',
+          'sections.item:page_images.images.*',
+          'sections.item:page_faqs.faqs.page_faq_id.*',
+          'sections.item:page_quote.quote',
+          'sections.item:page_quests.quests.quest_id.*',
+        ],
         filter: {
           slug: "/"
         }
@@ -17,8 +24,7 @@ const fetchHomePage = async () => {
   }
 };
 
-const {data} = await useAsyncData('home', () => fetchHomePage());
-pageData.value = data.value;
+const {data: pageData} = await useAsyncData('home', () => fetchHomePage());
 </script>
 
 <template>

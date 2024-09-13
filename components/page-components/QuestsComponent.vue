@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
 defineProps(['section']);
 </script>
@@ -6,10 +6,11 @@ defineProps(['section']);
 <template>
   <Width class="my-6">
     <NuxtLink v-if="section.item.quests.length === 1"
-                :to="`/cities/${section.item.quests[0].quest_id.id}`"
-                class="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8 p-4 -mx-4 rounded-xl border border-gray-100 hover:border-gray-300 transition duration-100">
-      <img class="rounded h-40 w-full sm:w-40 object-cover"
-           :src="`https://data.arendz.nl/assets/${section.item.quests[0].quest_id.image}`"/>
+              :to="`/cities/${section.item.quests[0].quest_id.id}`"
+              class="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8 p-4 -mx-4 rounded-xl border border-gray-100 hover:border-gray-300 transition duration-100">
+      <img :alt="`Afbeelding van ${quest.quest_id.name}`"
+           :src="`https://data.arendz.nl/assets/${section.item.quests[0].quest_id.image}`"
+           class="rounded h-40 w-full sm:w-40 object-cover"/>
 
       <div class="flex flex-col">
         <div class="text-xl flex flex-row items-center gap-x-1 text-indigo-700 font-bold">
@@ -29,13 +30,15 @@ defineProps(['section']);
       <NuxtLink
           v-for="quest in section.item.quests"
           :to="`/cities/${quest.quest_id.id}`"
-          class="flex lg:flex-col items-center lg:items-start gap-2 rounded-xl">
-        <img v-if="quest.quest_id.image" class="rounded h-40 w-40 lg:w-full object-cover"
-             :src="`https://data.arendz.nl/assets/${quest.quest_id.image}`"/>
+          class="quest-card flex lg:flex-col items-center lg:items-start gap-2 rounded-xl">
+        <img v-if="quest.quest_id.image"
+             :alt="`Afbeelding van ${quest.quest_id.name}`"
+             :src="`https://data.arendz.nl/assets/${quest.quest_id.image}`"
+             class="rounded h-40 w-40 lg:w-full object-cover"/>
         <div v-else class="rounded h-40 w-40 lg:w-full bg-gray-300"/>
 
         <div class="flex flex-col justify-start">
-          <div class="underline hover:no-underline text-xl flex flex-row items-center gap-x-1 text-indigo-700 font-bold">
+          <div class="quest-card-title text-xl flex flex-row items-center gap-x-1 text-indigo-700 font-bold">
             {{ quest.quest_id.name }}
           </div>
           <div class="opacity-60">{{ quest.quest_id.description }}</div>
@@ -46,5 +49,11 @@ defineProps(['section']);
 </template>
 
 <style scoped>
+.quest-card .quest-card-title {
+  text-decoration: underline;
+}
 
+.quest-card:hover .quest-card-title {
+  text-decoration: none;
+}
 </style>
