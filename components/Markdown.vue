@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it';
 
-defineProps(['section']);
+defineProps(['content'])
 const markdown = new markdownit();
 </script>
 
 <template>
-  <Width class="my-6">
-    <div class="prose max-w-none" v-html="markdown.render(section.item.text)"/>
-  </Width>
+  <div v-if="content" class="prose max-w-none" v-html="markdown.render(content)"/>
+  <div v-else>Geen content gespecificeerd</div>
 </template>
 
 <style scoped>

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 // @ts-ignore
-import Header from "~/components/page-components/Header.vue";
+import Header from "~/components/page-components/HeaderComponent.vue";
 // @ts-ignore
-import Text from "~/components/page-components/Text.vue";
+import Text from "~/components/page-components/TextComponent.vue";
 // @ts-ignore
-import Images from "~/components/page-components/Images.vue";
+import Images from "~/components/page-components/ImagesComponent.vue";
 // @ts-ignore
-import Faqs from "~/components/page-components/Faqs.vue";
+import Faqs from "~/components/page-components/FaqsComponent.vue";
 // @ts-ignore
-import Quote from "~/components/page-components/Quote.vue";
+import Quote from "~/components/page-components/QuoteComponent.vue";
 // @ts-ignore
-import Quests from "~/components/page-components/Quests.vue";
+import Quests from "~/components/page-components/QuestsComponent.vue";
 
 defineProps(['sections']);
 
@@ -35,8 +35,9 @@ function getComponent(c: any) {
 </script>
 
 <template>
-  <component v-for="comp of sections"
+  <component v-for="(comp, i) of sections"
              :section="comp"
+             :index="i"
              :is="getComponent(comp)"
   >{{ comp }}</component>
 </template>

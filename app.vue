@@ -4,7 +4,7 @@
       <div v-if="menuItems"
            :class="{'text-gray-200': route.fullPath === '/'}"
            class="md:w-full flex flex-row mx-8 md:mx-auto md:max-w-xl lg:max-w-2xl xl:max-w-3xl gap-x-4 my-4">
-        <NuxtLink v-for="item of menuItems" :to="item.slug">
+        <NuxtLink v-for="item of menuItems" :to="item.slug[0] === '/' ? item.slug : '/' + item.slug">
           {{ item.title }}
         </NuxtLink>
         <a target="_blank" href="https://app.storywalks.nl/" class="ml-auto flex flex-row items-center gap-x-1">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center justify-stretch pt-8 mb-8">
+    <div class="flex flex-col items-stretch pt-8 mb-8">
       <NuxtPage/>
     </div>
   </div>
@@ -30,9 +30,9 @@ const {getItems} = useDirectusItems();
 const menuItems = ref([])
 const route = useRoute();
 
-const fetchHomePage = async () => {
+const fetchMenuLinks = async () => {
   try {
-    menuItems.value = await getItems({
+    return await getItems({
       collection: 'page',
       params: {
         filter: {
@@ -44,7 +44,8 @@ const fetchHomePage = async () => {
   }
 };
 
-fetchHomePage();
+const {data, error} = await useAsyncData('menu-links', () => fetchMenuLinks());
+menuItems.value = data.value;
 </script>
 
 <style>

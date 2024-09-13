@@ -4,7 +4,7 @@ const pageData = ref()
 
 const fetchHomePage = async () => {
   try {
-    pageData.value = await getItems({
+    return await getItems({
       collection: 'page',
       params: {
         fields: ['*', 'sections.*', 'sections.item.*'],
@@ -17,7 +17,8 @@ const fetchHomePage = async () => {
   }
 };
 
-fetchHomePage();
+const {data} = await useAsyncData('home', () => fetchHomePage());
+pageData.value = data.value;
 </script>
 
 <template>

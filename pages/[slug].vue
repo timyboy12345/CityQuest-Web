@@ -6,7 +6,7 @@ const route = useRoute()
 
 const fetchPage = async () => {
   try {
-    pageData.value = await getItems({
+    return await getItems({
       collection: 'page',
       params: {
         fields: [
@@ -21,28 +21,29 @@ const fetchPage = async () => {
           slug: route.params.slug
         }
       }
-    }).then((r) => {
-      if (r.length >= 1) {
-        return r[0]
-      } else {
-        pageExists.value = false;
-        // throw createError({
-        //   statusCode: 404,
-        //   statusMessage: 'Page not found',
-        // })
-      }
-    })
+    });
   } catch (e) {
     console.error(e);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Error occured while fetching page',
+      statusMessage: 'Error occurred while fetching page',
       data: e
     })
   }
 };
 
-fetchPage();
+const { data, error } = await useAsyncData(`page-${route.params.slug}`, () => fetchPage());
+
+if (error.value) {
+  console.error(error.value);
+  throw error;
+} else {
+  if (data.value.length > 0) {
+    pageData.value = data.value[0]
+  } else {
+    pageExists.value = false;
+  }
+}
 </script>
 
 <template>
