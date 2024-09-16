@@ -19,9 +19,10 @@ const fetchPage = async () => {
           'sections.item:page_quote.quest.id',
           'sections.item:page_quote.quest.name',
           'sections.item:page_quests.quests.quest_id.*',
+          'sections.item:page_icons.icons.*',
         ],
         filter: {
-          slug: route.params.slug
+          slug: route.params.slug.join('/').replaceAll('//', '/')
         }
       }
     });

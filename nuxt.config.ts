@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: {enabled: true},
-    modules: ['@nuxtjs/tailwindcss', 'nuxt-directus', '@nuxtjs/seo'],
+    modules: ['@nuxtjs/tailwindcss', 'nuxt-directus', '@nuxtjs/seo', '@nuxtjs/google-fonts'],
     runtimeConfig: {
         public: {
             directus: {url: "https://data.arendz.nl"}
@@ -19,5 +19,10 @@ export default defineNuxtConfig({
     },
     seoExperiments: {
         enabled: false,
+    },
+    googleFonts: {
+        families: {
+            "Material Symbols Outlined": [400]
+        }
     }
 })

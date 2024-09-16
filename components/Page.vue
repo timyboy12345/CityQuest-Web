@@ -11,6 +11,8 @@ import Faqs from "~/components/page-components/FaqsComponent.vue";
 import Quote from "~/components/page-components/QuoteComponent.vue";
 // @ts-ignore
 import Quests from "~/components/page-components/QuestsComponent.vue";
+// @ts-ignore
+import IconsComponent from "~/components/page-components/IconsComponent.vue";
 
 defineProps(['sections']);
 
@@ -28,6 +30,8 @@ function getComponent(c: any) {
       return Quote;
     case 'page_faqs':
       return Faqs;
+    case 'page_icons':
+      return IconsComponent;
     default:
       return 'div';
   }

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="flex flex-col h-screen justify-between">
     <div class="absolute w-full">
       <div v-if="menuItems"
            :class="{'text-gray-200': route.fullPath === '/'}"
            class="md:w-full flex flex-row mx-8 md:mx-auto md:max-w-xl lg:max-w-2xl xl:max-w-3xl gap-x-4 my-4">
-        <NuxtLink v-for="item of menuItems" :to="item.slug[0] === '/' ? item.slug : '/' + item.slug">
+        <NuxtLink v-for="item of topMenu" :to="item.slug[0] === '/' ? item.slug : '/' + item.slug">
           {{ item.title }}
         </NuxtLink>
         <a target="_blank" href="https://app.storywalks.nl/" class="ml-auto flex flex-row items-center gap-x-1">
@@ -19,8 +19,42 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-stretch pt-8 mb-8">
+    <div class="flex flex-col items-stretch pt-8 mb-4">
       <NuxtPage/>
+    </div>
+
+
+    <div class="w-full bg-gray-200">
+      <Width class="py-4 text-gray-600 text-sm">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="col-span-2 md:col-span-2 flex flex-col">
+            <h3 class="text-lg font-bold font-sansita">Over StoryWalks</h3>
+            <p>StoryWalks is dé aanbieder van interactieve GPS-tochten in Nederland, samen met vrienden, familie of
+              alleen.</p>
+          </div>
+
+          <div class="flex flex-col">
+            <RouterLink to="/steden" class="underline hover:no-underline">Steden</RouterLink>
+            <a class="underline hover:no-underline" target="_blank" href="https://app.storywalks.nl">App</a>
+            <!--            <a class="underline" href="https://www.facebook.com/profile.php?id=100079089414321"-->
+            <!--               target="_blank">Facebook</a>-->
+            <!--            <a class="underline" href="https://instagram.com/drankidee/" target="_blank">Instagram</a>-->
+          </div>
+
+          <div class="flex flex-col">
+            <RouterLink v-for="link of bottomMenu"
+                        :to="link.slug[0] === '/' ? link.slug : '/' + link.slug"
+                        class="hover:no-underline underline">
+              {{ link.title }}
+            </RouterLink>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          Gemaakt met ❤️ door Tim - <a class="underline text-gray-800" target="_blank"
+                                       href="https://arendz.nl/?utm_source=drankidee&amp;utm_medium=backlink">Arendz.nl</a>
+        </div>
+      </Width>
     </div>
   </div>
 </template>
@@ -35,7 +69,9 @@ const fetchMenuLinks = async () => {
       collection: 'page',
       params: {
         filter: {
-          "in_menu": true
+          "in_menu": {
+            "_nnull": true
+          }
         }
       }
     })
@@ -44,6 +80,9 @@ const fetchMenuLinks = async () => {
 };
 
 const {data: menuItems, error} = await useAsyncData('menu-links', () => fetchMenuLinks());
+
+const topMenu = menuItems.value.filter((s) => s.in_menu.includes('top'));
+const bottomMenu = menuItems.value.filter((s) => s.in_menu.includes('bottom'));
 </script>
 
 <style>
