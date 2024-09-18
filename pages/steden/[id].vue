@@ -82,4 +82,11 @@ const listItems = ref([{
   title: 'Makkelijk te starten',
   content: 'Geen speciale dingen nodig, geen dure telefoon vereist, geen constante 5G-verbinding nodig, 1x laden is vaak genoeg.'
 }])
+
+defineOgImageComponent('NuxtSeo', {
+  title: questData.value.title,
+  description: questData.value.description,
+  theme: '#4338ca',
+  colorMode: 'light',
+})
 </script>

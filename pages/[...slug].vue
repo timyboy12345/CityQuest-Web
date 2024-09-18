@@ -1,4 +1,6 @@
 <script setup>
+import {useRobotsRule} from '#imports'
+
 const {getItems} = useDirectusItems();
 const pageExists = ref(true)
 const pageData = ref()
@@ -47,6 +49,35 @@ if (error.value) {
   } else {
     pageExists.value = false;
   }
+}
+
+const rule = useRobotsRule();
+
+if (pageData.value && pageData.value.status === 'published') {
+  rule.value = 'all';
+
+  if (pageData.value.seo) {
+    useHead({
+      title: pageData.value.seo.title,
+      meta: [
+        {name: 'description', content: pageData.value.seo.description},
+        {name: 'twitter:title', content: pageData.value.seo.title},
+        {name: 'twitter:description', content: pageData.value.seo.description},
+        {name: 'twitter:card', content: 'summary'},
+      ],
+    })
+
+    if (pageData.value.seo.og_image) {
+      useHead({
+        meta: [
+          {name: 'og:image', content: `https://data.arendz.nl/assets/${pageData.value.seo.og_image}`},
+          {name: 'twitter:image', content: `https://data.arendz.nl/assets/${pageData.value.seo.og_image}`},
+        ]
+      })
+    }
+  }
+} else {
+  rule.value = 'noindex, nofollow';
 }
 </script>
 

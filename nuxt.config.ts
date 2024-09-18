@@ -14,15 +14,20 @@ export default defineNuxtConfig({
         description: 'StoryWalks is dé manier om een nieuwe, of al bekende, stad te ontdekken met vrienden en familie!',
         defaultLocale: 'nl', // not needed if you have @nuxtjs/i18n installed
     },
-    ogImage: {
-        enabled: false,
-    },
-    seoExperiments: {
-        enabled: false,
+    // ogImage: {
+    //     enabled: false,
+    // },
+    // seoExperiments: {
+    //     enabled: false,
+    // },
+    sitemap: {
+        sources: [
+            '/api/__sitemap__/urls',
+        ]
     },
     googleFonts: {
         families: {
             "Material Symbols Outlined": [400]
         }
-    }
+    },
 })
