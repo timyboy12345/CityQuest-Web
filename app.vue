@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col h-screen justify-between">
-    <div class="absolute w-full">
+    <div class="absolute w-full overflow-scroll whitespace-pre">
       <div v-if="menuItems"
            :class="{'text-gray-200': route.fullPath === '/'}"
            class="md:w-full flex flex-row mx-8 md:mx-auto md:max-w-xl lg:max-w-2xl xl:max-w-3xl gap-x-4 my-4">
-        <NuxtLink v-for="item of topMenu" :to="item.slug[0] === '/' ? item.slug : '/' + item.slug">
+        <NuxtLink :class="{'opacity-100': route.fullPath == fixSlashes(item.slug)}" class="opacity-70 hover:opacity-100" v-for="item of topMenu" :to="fixSlashes(item.slug)">
           {{ item.title }}
         </NuxtLink>
         <a target="_blank" href="https://app.storywalks.nl/" class="ml-auto flex flex-row items-center gap-x-1">
@@ -22,7 +22,6 @@
     <div class="flex flex-col items-stretch pt-8 mb-4">
       <NuxtPage/>
     </div>
-
 
     <div class="w-full bg-gray-200">
       <Width class="py-4 text-gray-600 text-sm">
@@ -83,6 +82,10 @@ const {data: menuItems, error} = await useAsyncData('menu-links', () => fetchMen
 
 const topMenu = menuItems.value.filter((s) => s.in_menu.includes('top'));
 const bottomMenu = menuItems.value.filter((s) => s.in_menu.includes('bottom'));
+
+function fixSlashes(slug) {
+  return slug[0] === '/' ? slug : '/' + slug
+}
 </script>
 
 <style>

@@ -3,7 +3,7 @@ defineProps(['items'])
 </script>
 
 <template>
-  <div class="grid gap-4 grid-cols-3">
+  <div class="grid gap-4 md:grid-cols-3">
     <div class="flex flex-col items-center text-center" v-for="item of items">
       <div v-if="item.icon" class="text-indigo-800 rounded-full bg-gray-200 flex items-center justify-center mb-2 w-10 h-10 text-xl material-symbols-outlined">
         {{ item.icon }}

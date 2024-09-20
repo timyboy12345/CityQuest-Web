@@ -1,6 +1,6 @@
 <template>
   <div v-if="questData">
-    <Header :image="questData.image" :title="questData.name" :subtitle="questData.description"></Header>
+    <Header :image="`${questData.image}?key=header`" :title="questData.name" :subtitle="questData.description"></Header>
     <Width>
       <div class="my-4 py-2 px-4 rounded text-center border border-gray-300">
         <div v-if="questData.price > 0">Prijs: &euro;{{ formattedPrice }}</div>
@@ -15,14 +15,45 @@
       </a>
 
       <div class="my-8">
-<!--        <h2 class="text-center font-bold text-indigo-800 mb-2 text-xl">Waarom StoryWalks?</h2>-->
+        <!--        <h2 class="text-center font-bold text-indigo-800 mb-2 text-xl">Waarom StoryWalks?</h2>-->
         <IconList :items="listItems"/>
       </div>
 
       <div class="bg-gray-200 p-4 rounded text-gray-800">
         <div class="">Voorwaarden</div>
         <div class="text-sm opacity-80">
-          Na de aankoop (en eventuele succesvolle betaling) is de route (het avontuur/de quest) meteen te vinden in de online app. Je hebt 365 dagen om de route te voltooien, en zodra je start met een route heb je nog 24 uur. Per groep is er maar één aankoop vereist, maar ga je met meerdere groepen, dan dien je de stad via verschillende accounts te kopen.
+          Na de aankoop (en eventuele succesvolle betaling) is de route (het avontuur/de quest) meteen te vinden in de
+          online app. Je hebt 365 dagen om de route te voltooien, en zodra je start met een route heb je nog 24 uur. Per
+          groep is er maar één aankoop vereist, maar ga je met meerdere groepen, dan dien je de stad via verschillende
+          accounts te kopen.
+        </div>
+      </div>
+
+      <div v-if="questData.start_location || questData.accessibility"
+           class="w-full flex flex-col md:flex-row items-center justify-between gap-4 my-4">
+        <div class="w-full h-64 overflow-hidden rounded bg-gray-200" v-if="questData.start_coordinates">
+          <ClientOnly>
+            <LMap
+                ref="map"
+                :zoom="zoom"
+                :center="coordinates"
+                :use-global-leaflet="false"
+            >
+              <LTileLayer
+                  url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+                  attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+                  layer-type="base"
+                  name="OpenStreetMap"
+              />
+              <LMarker
+                  :lat-lng="coordinates"
+              />
+            </LMap>
+          </ClientOnly>
+        </div>
+        <div class="w-full" v-if="questData.accessibility">
+          <h3 class="font-bold">Bereikbaarheid</h3>
+          <article class="prose max-w-none prose-sm" v-html="questData.accessibility"></article>
         </div>
       </div>
     </Width>
@@ -36,6 +67,7 @@ const {getItems} = useDirectusItems();
 const pageExists = ref(true)
 const questData = ref()
 const route = useRoute()
+const zoom = ref(14)
 
 const formattedPrice = computed(() => (Math.round(questData.value.price * 100) / 100).toFixed(2));
 const fetchPage = async () => {
@@ -71,6 +103,8 @@ if (error.value) {
     pageExists.value = false;
   }
 }
+
+const coordinates = computed(() => questData.value.start_coordinates.coordinates.slice().reverse())
 
 const listItems = ref([{
   title: 'Flexibel plannen',

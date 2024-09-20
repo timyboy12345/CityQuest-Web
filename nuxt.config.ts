@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: {enabled: true},
-    modules: ['@nuxtjs/tailwindcss', 'nuxt-directus', '@nuxtjs/seo', '@nuxtjs/google-fonts'],
+    modules: ['@nuxtjs/tailwindcss', 'nuxt-directus', '@nuxtjs/seo', '@nuxtjs/google-fonts', '@nuxtjs/leaflet'],
     runtimeConfig: {
         public: {
             directus: {url: "https://data.arendz.nl"}

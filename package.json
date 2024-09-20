@@ -1,7 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
+    "@nuxtjs/leaflet": "^1.2.3",
     "@nuxtjs/seo": "^2.0.0-rc.21",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@types/markdown-it": "^14.1.2",

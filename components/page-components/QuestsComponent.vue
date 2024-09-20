@@ -9,7 +9,7 @@ defineProps(['section']);
               :to="`/steden/${section.item.quests[0].quest_id.id}`"
               class="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8 p-4 -mx-4 rounded-xl border border-gray-100 hover:border-gray-300 transition duration-100">
       <img :alt="`Afbeelding van ${section.item.quests[0].quest_id.name}`"
-           :src="`https://data.arendz.nl/assets/${section.item.quests[0].quest_id.image}`"
+           :src="`https://data.arendz.nl/assets/${section.item.quests[0].quest_id.image}?key=thumbnail`"
            class="rounded h-40 w-full sm:w-40 object-cover"/>
 
       <div class="flex flex-col">
@@ -33,7 +33,7 @@ defineProps(['section']);
           class="quest-card flex lg:flex-col items-center lg:items-start gap-2 rounded-xl">
         <img v-if="quest.quest_id.image"
              :alt="`Afbeelding van ${quest.quest_id.name}`"
-             :src="`https://data.arendz.nl/assets/${quest.quest_id.image}`"
+             :src="`https://data.arendz.nl/assets/${quest.quest_id.image}?key=thumbnail`"
              class="rounded h-40 w-40 lg:w-full object-cover"/>
         <div v-else class="rounded h-40 w-40 lg:w-full bg-gray-300"/>
 
